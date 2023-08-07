@@ -29,10 +29,23 @@ wget https://intel-extension-for-pytorch.s3.amazonaws.com/miscellaneous/llm/prom
 
 # Run GPT-J
 # BF16 - Benchmark
+./bash-bench-bf16-gpt-j.sh
 
-# Int8 - WOQ Quantization
+# Int8 - Quantization
 python -m pip install neural-compressor==2.2
 ./bash-quantize-gpt-j.sh
 
 # Int8 - benchmark
 ./bash-bench-int8-gpt-j.sh
+# ---- End of GPT-J
+
+# Run llama-2
+# BF16 - Benchmark
+./bash-bench-bf16-llama-2.sh
+
+# Int8 - Quantization
+./bash-quantize-llama-2.sh
+
+# Int8 - benchmark
+./bash-bench-int8-llama-2.sh
+# ---- End of llama-2
