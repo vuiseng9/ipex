@@ -1,0 +1,38 @@
+# Reproduce IPEX-LLM 
+
+# Installation - minimal
+https://intel.github.io/intel-extension-for-pytorch/llm/cpu/
+
+# Install From Prebuilt Wheel Files
+python -m pip install torch==2.1.0.dev20230711+cpu torchvision==0.16.0.dev20230711+cpu torchaudio==2.1.0.dev20230711+cpu --index-url https://download.pytorch.org/whl/nightly/cpu
+python -m pip install https://intel-extension-for-pytorch.s3.amazonaws.com/ipex_dev/cpu/intel_extension_for_pytorch-2.1.0.dev0%2Bcpu.llm-cp39-cp39-linux_x86_64.whl
+conda install -y libstdcxx-ng=12 -c conda-forge
+
+# Install Dependencies
+conda install -y gperftools -c conda-forge
+conda install -y intel-openmp
+python -m pip install transformers==4.28.1 cpuid accelerate datasets sentencepiece protobuf==3.20.3
+
+# Preparations
+# Get the example scripts with git command
+git clone https://github.com/intel/intel-extension-for-pytorch.git
+cd intel-extension-for-pytorch
+git checkout v2.1.0.dev+cpu.llm
+cd examples/cpu/inference/python/llm
+
+# Get the sample prompt.json
+# Make sure the downloaded prompt.json file is under the same directory as that of the python scripts mentioned above.
+wget https://intel-extension-for-pytorch.s3.amazonaws.com/miscellaneous/llm/prompt.json
+
+# ---- End of minimal Installation
+
+
+# Run GPT-J
+# BF16 - Benchmark
+
+# Int8 - WOQ Quantization
+python -m pip install neural-compressor==2.2
+./bash-quantize-gpt-j.sh
+
+# Int8 - benchmark
+./bash-bench-int8-gpt-j.sh
